@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Свадьба Руслана и Алины</title>
+    
+    <link rel="icon" type="image/png" href="https://img.icons8.com/plasticine/100/wedding-rings.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes:wght@600;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* === ОСНОВНЫЕ НАСТРОЙКИ === */
+        :root {
+            --color-primary: #a8b8e8;
+            --color-secondary: #e0f2fe;
+            --color-turquoise: #40e0d0;
+            --color-text: #333;
+            --font-heading: 'Great Vibes', serif;  /*новый шрифт заголовков */
+            --font-body: 'Raleway', sans-serif;      /*новый шрифт текста */
+        }    
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            line-height: 1.8;
+            background: linear-gradient(135deg, #e0f2fe 0%, #d4e8f5 100%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        /* === ОБЛОЖКА (ФОТО ПАРЫ НА ФОНЕ) === */
+        .cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: linear-gradient(rgba(224, 242, 254, 0.75), rgba(212, 232, 245, 0.75)), url('https://i.postimg.cc/QCScrJps/db6c64b8-f540-4f8b-92fc-1fcdab9149b5.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #333;
+            z-index: 100;
+            transition: transform 1.2s cubic-bezier(0.86, 0, 0.07, 1), opacity 1s;
+        }
+        
+        .cover.hidden {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .cover h1,
+.cover p {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.9),
+                 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+        .cover p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .cover .guest-name {
+            font-size: 1rem;
+            margin-top: 3rem;
+            font-weight: 300;
+        }
+        
+        .cover .guest-name b {
+            font-weight: 600;
+        }
+
+        .open-button {
+            background-color: var(--color-turquoise);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-family: var(--font-body);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .open-button:hover {
+            background-color: #35c4b6;
+            transform: scale(1.05);
+        }
+        
+        /* === ОСНОВНОЙ КОНТЕНТ === */
+        .main-content {
+            display: none;
+        }
+        
+        .section {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section:nth-child(even) {
+            background-color: var(--color-secondary);
+            border-radius: 20px;
+            margin: 20px auto;
+        }
+
+       .section-title {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: #8B4513;   /*Коричневый */
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.15);
+    letter-spacing: 2px;
+}
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* === ПАРА === */
+        .couple-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .couple-profile {
+            flex: 1;
+            min-width: 280px;
+        }
+        
+       .couple-profile img {
+    width: 200px;
+    height: 260px;
+    border-radius: 20px;
+    object-fit: cover;
+    border: 5px solid var(--color-turquoise);
+    margin-bottom: 20px;
+}
+        
+       .name-alina {
+    color: #d4667a;   /* Розовый для Алины */
+}
+
+.name-ruslan {
+    color: #4a4a8a;   /* Синий для Руслана */
+}
+
+        .couple-details {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* === МЕРОПРИЯТИЯ === */
+        .event-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: center;
+        }
+        
+        .event-card {
+            background: rgba(255, 255, 255, 0.92);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            width: 100%;
+            max-width: 400px;
+            border-top: 5px solid var(--color-turquoise);
+        }
+
+        .event-card h3 {
+            font-family: var(--font-heading);
+            color: var(--color-turquoise);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .event-card i {
+            color: var(--color-turquoise);
+            margin-right: 10px;
+        }
+        
+        .event-card p {
+            line-height: 1.9;
+            font-size: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--color-turquoise);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background-color: #35c4b6;
+            transform: translateY(-2px);
+        }
+
+        /* === ФОН С ФОТО ПАРЫ ДЛЯ СЕКЦИИ "ДАТА И МЕСТО" === */
+        #events {
+            background-image: linear-gradient(rgba(224, 242, 254, 0.75), rgba(212, 232, 245, 0.75)), url('https://i.postimg.cc/pTStcgSv/00033321-b2cc-4e07-b0f2-399a76a3f022.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            border-radius: 20px;
+            margin: 20px auto;
+        }
+
+        /* === ОБРАТНЫЙ ОТСЧЕТ === */
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .countdown-item {
+            background: var(--color-turquoise);
+            color: white;
+            width: 100px;
+            height: 100px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .countdown-item span {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        .countdown-item p {
+            font-size: 0.9rem;
+        }
+
+        /* === ФОРМА ПОДТВЕРЖДЕНИЯ === */
+        .rsvp-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border: 2px solid var(--color-turquoise);
+        }
+
+        .rsvp-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .rsvp-btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+            font-weight: 600;
+        }
+
+        .rsvp-btn.yes {
+            background-color: var(--color-turquoise);
+        }
+        .rsvp-btn.yes:hover {
+            background-color: #35c4b6;
+            transform: scale(1.05);
+        }
+
+        .rsvp-btn.no {
+            background-color: #a8b8e8;
+        }
+        .rsvp-btn.no:hover {
+            background-color: #8fa3d9;
+            transform: scale(1.05);
+        }
+
+        .rsvp-result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #4a4a8a;
+            display: none;
+        }
+
+        /* === КНОПКА МУЗЫКИ === */
+        #music-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--color-turquoise);
+            color: white;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            z-index: 99;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            animation: spin 8s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        #music-toggle.paused {
+             animation-play-state: paused;
+        }
+
+        /* === ПОДВАЛ === */
+        /* === ФОН С ФОТО ДЛЯ СЕКЦИИ "ПОДТВЕРЖДЕНИЕ ПРИСУТСТВИЯ" === */
+#rsvp {
+    background-image: linear-gradient(rgba(224, 242, 254, 0.75), rgba(212, 232, 245, 0.75)), url('https://i.postimg.cc/SRVvMYzB/30e0d9cc-78dd-40aa-b209-d1a6f60ed1c0.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    border-radius: 20px;
+    margin: 20px auto;
+}
+         footer {
+    background-image: linear-gradient(rgba(64, 224, 208, 0.7), rgba(53, 196, 182, 0.7)), url('https://i.postimg.cc/P56vRXms/serd.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
+}
+        
+        footer h2 {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        /* === АДАПТИВНОСТЬ === */
+        @media (max-width: 768px) {
+            .cover h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+            .countdown-container { gap: 10px; }
+            .countdown-item { width: 70px; height: 70px; }
+            .countdown-item span { font-size: 1.8rem; }
+            .countdown-item p { font-size: 0.7rem; }
+            .rsvp-buttons { flex-direction: column; align-items: center; }
+            .rsvp-btn { width: 80%; }
+            #events,{ background-attachment: scroll;
+           
+}
+
+    </style>
+</head>
+<body>
+
+    <audio id="background-music" loop>
+        <source src="https://ru.files.fm/u/cyv7rhbb33qy392d" type="audio/mpeg">
+    </audio>
+    
+    <button id="music-toggle" class="paused">
+      <i class="fas fa-music"></i>
+    </button>
+    
+    <div class="cover" id="cover">
+        <p>Свадьба</p>
+        <h1>Руслана и Алины</h1>
+        <p>Суббота, 12 Декабря 2026</p>
+
+        <div class="guest-name">
+            <p>Дорогие гости!</p>
+            <b>Имя гостя</b>
+        </div>
+        
+        <button class="open-button" id="open-invitation">
+            <i class="fas fa-envelope-open"></i> Открыть приглашение
+        </button>
+    </div>
+
+    <main class="main-content" id="main-content">
+        
+        <section class="section" id="couple">
+            <p class="section-subtitle" style="font-size: 1.2rem;">
+                «В этот день мы соединяем свои сердца и начинаем новый путь — путь любви, доверия и взаимопонимания».
+            </p>
+            <div class="couple-container">
+                <div class="couple-profile">
+                    <img src="https://i.postimg.cc/GhFrWR78/i.webp" alt="Невеста"> 
+                    <h2 class="couple-name name-alina">Алина</h2>
+                    <p class="couple-details">Дочь Олега Геннадьевича <br>и Татьяны Петровны</p>
+                </div>
+                
+                <div class="couple-profile">
+                    <img src="https://i.postimg.cc/pXTY7VXj/8e9f34f4-0625-4d5f-a278-3cb23e4b954b.jpg" alt="Жених"> 
+                    <h2 class="couple-name name-ruslan">Руслан</h2> <p class="couple-details">Сын Разиля Расимовича <br>и Марины Владимировны</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="events">
+            <h2 class="section-title">Дата и место</h2>
+            <p class="section-subtitle">С радостью приглашаем вас на нашу свадьбу, которая состоится:</p>
+            <div class="event-container">
+                <div class="event-card">
+                    <h3>Банкет</h3>
+                    <p><i class="fas fa-calendar-alt"></i> <strong>Суббота, 12 Декабря 2026</strong></p>
+                    <p><i class="fas fa-clock"></i> 17:00</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Ресторан-кафе «Ягуар», г. Нурлат, ул. Советская, 117</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section" id="countdown">
+            <h2 class="section-title">До торжества осталось</h2>
+            <div class="countdown-container">
+                <div class="countdown-item"><span id="days">00</span><p>Дней</p></div>
+                <div class="countdown-item"><span id="hours">00</span><p>Часов</p></div>
+                <div class="countdown-item"><span id="minutes">00</span><p>Минут</p></div>
+                <div class="countdown-item"><span id="seconds">00</span><p>Секунд</p></div>
+            </div>
+        </section>
+
+        <section class="section" id="rsvp">
+            <h2 class="section-title">Подтверждение присутствия</h2>
+            <p class="section-subtitle">Пожалуйста, сообщите, сможете ли вы прийти на наше мероприятие. Это поможет нам всё организовать.</p>
+            
+            <div class="rsvp-container">
+                <p style="font-size: 1.2rem; margin-bottom: 10px;">Сможете ли вы прийти?</p>
+                <div class="rsvp-buttons">
+                    <button class="rsvp-btn yes" onclick="submitRSVP('yes')">Да, приду</button>
+                    <button class="rsvp-btn no" onclick="submitRSVP('no')">Нет, не смогу</button>
+                </div>
+                <div class="rsvp-result" id="rsvp-result"></div>
+            </div>
+        </section>
+
+        <footer>
+            <h2>Спасибо</h2>
+            <p>Для нас большая честь и радость, если вы сможете разделить с нами этот счастливый день.</p>
+            <br>
+            <p>С любовью,</p>
+            <h2 style="font-size: 1.8rem; margin-top: 1rem;">Руслан и Алина</h2>
+        </footer>
+        
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const openButton = document.getElementById('open-invitation');
+            const cover = document.getElementById('cover');
+            const mainContent = document.getElementById('main-content');
+            const audio = document.getElementById('background-music');
+            const musicToggle = document.getElementById('music-toggle');
+            
+            openButton.addEventListener('click', function() {
+                cover.classList.add('hidden');
+                mainContent.style.display = 'block';
+                
+                audio.play().catch(error => {
+                    console.log("Браузер открыл автовоспроизведение.");
+                });
+                
+                if (!audio.paused) {
+                    musicToggle.classList.remove('paused');
+                }
+                
+                revealSections();
+            });
+            
+            musicToggle.addEventListener('click', function() {
+                if (audio.paused) {
+                    audio.play();
+                    musicToggle.classList.remove('paused');
+                } else {
+                    audio.pause();
+                    musicToggle.classList.add('paused');
+                }
+            });
+
+            const weddingDate = new Date("2026-12-12T17:00:00").getTime();
+
+            const countdownFunction = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+                document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+                document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+                document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+
+                if (distance < 0) {
+                    clearInterval(countdownFunction);
+                    document.getElementById('countdown').innerHTML = "<h3>Торжество уже состоялось</h3>";
+                }
+            }, 1000);
+
+            const sections = document.querySelectorAll('.section');
+            const revealSections = () => {
+                const triggerBottom = window.innerHeight / 5 * 4;
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    if (sectionTop < triggerBottom) {
+                        section.classList.add('visible');
+                    }
+                });
+            };
+            
+            window.addEventListener('scroll', revealSections);
+
+            window.submitRSVP = function(answer) {
+                const resultDiv = document.getElementById('rsvp-result');
+                
+                let currentStats = JSON.parse(localStorage.getItem('weddingRSVP')) || { yes: 0, no: 0 };
+                if (answer === 'yes') {
+                    currentStats.yes += 1;
+                } else {
+                    currentStats.no += 1;
+                }
+                localStorage.setItem('weddingRSVP', JSON.stringify(currentStats));
+
+                if (answer === 'yes') {
+                    resultDiv.innerHTML = "🎉 Спасибо! Ждем вас на нашем празднике!";
+                } else {
+                    resultDiv.innerHTML = "😔 Спасибо за ответ. Нам будет вас не хватать!";
+                }
+                resultDiv.style.display = 'block';
+                
+                document.querySelectorAll('.rsvp-btn').forEach(btn => btn.disabled = true);
+                document.querySelectorAll('.rsvp-btn').forEach(btn => btn.style.opacity = '0.6');
+            };
+        });
+    </script>
+</body>
+</html>
